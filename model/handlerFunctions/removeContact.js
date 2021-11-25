@@ -6,7 +6,7 @@ const { updateJson } = require('../../helpers')
 
 const removeContact = async (id) => {
   const contacts = await listContacts()
-  const idx = contacts.findIndex(item => item.id === id)
+  const idx = contacts.findIndex(item => `${item.id}` === `${id}`)
   if (idx === -1) {
     throw createError(404, `No contact with id: ${id} found.`)
   }

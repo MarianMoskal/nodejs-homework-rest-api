@@ -4,7 +4,7 @@ const listContacts = require('./listContacts')
 const getContactById = async (contactId) => {
   const data = await listContacts()
   for (const el of data) {
-    if (`${el.id}` === contactId) {
+    if (`${el.id}` === `${contactId}`) {
       return el
     }
   }
