@@ -1,7 +1,7 @@
 const responseTemplate = require('./responseTemplate')
-const updateJson = require('./updateJson')
+const throwError = require('./throwError')
 
 module.exports = {
   responseTemplate,
-  updateJson
+  throwError
 }

@@ -1,8 +1,10 @@
 const { responseTemplate } = require('../../helpers')
-const { listContacts } = require('../../model')
+// const { listContacts } = require('../../model')
+const { Contact } = require('../../models')
 
 const getAll = async (req, res) => {
-  res.json(await responseTemplate(200, listContacts))
+  const result = await Contact.find({})
+  res.json(responseTemplate(200, result))
 }
 
 module.exports = getAll

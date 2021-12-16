@@ -1,9 +1,20 @@
+const mongoose = require('mongoose')
+const throwError = require('../../helpers')
+const { Contact } = require('../../models')
 const { responseTemplate } = require('../../helpers')
-const { getContactById } = require('../../model')
 
 const getById = async (req, res) => {
   const { contactId: id } = req.params
-  res.json(await responseTemplate(200, getContactById, id))
+
+  if (!mongoose.isValidObjectId(id)) {
+    throwError(id)
+  }
+  const data = await Contact.findById(id)
+
+  if (!data) {
+    throwError(id)
+  }
+  res.json(responseTemplate(200, data))
 }
 
 module.exports = getById
