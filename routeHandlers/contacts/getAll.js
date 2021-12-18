@@ -1,5 +1,4 @@
 const { responseTemplate } = require('../../helpers')
-// const { listContacts } = require('../../model')
 const { Contact } = require('../../models')
 
 const getAll = async (req, res) => {
