@@ -1,8 +1,9 @@
-const responseTemplate = async (code, func, ...args) => ({
+
+const responseTemplate = (code, result) => ({
   status: 'ok',
   code,
   data: {
-    result: await func(...args)
+    result,
   }
 })
 

@@ -1,8 +1,9 @@
+const { Contact } = require('../../models')
 const { responseTemplate } = require('../../helpers')
-const { addContact } = require('../../model')
 
 const post = async (req, res) => {
-  res.status(201).json(await responseTemplate(201, addContact, req.body))
+  const result = await Contact.create(req.body)
+  res.status(201).json(responseTemplate(201, result))
 }
 
 module.exports = post

@@ -2,13 +2,12 @@ const mongoose = require('mongoose')
 const throwError = require('../../helpers')
 const { Contact } = require('../../models')
 
-const remove = async (req, res) => {
-  const { contactId: id } = req.params
+const updateFavorite = async (req, res) => {
+  const { body: { favorite }, params: { contactId: id } } = req
   if (!mongoose.isValidObjectId(id)) {
     throwError(id)
   }
-
-  const result = await Contact.findByIdAndRemove(id)
+  const result = await Contact.findByIdAndUpdate(id, { favorite }, { new: true })
 
   if (!result) {
     throwError(id)
@@ -16,11 +15,11 @@ const remove = async (req, res) => {
 
   res.json({
     status: 'ok',
-    message: `contact with id: ${id} was deleted`,
+    code: 200,
     data: {
-      result
+      result,
     }
   })
 }
 
-module.exports = remove
+module.exports = updateFavorite
