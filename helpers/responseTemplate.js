@@ -2,9 +2,7 @@
 const responseTemplate = (code, result) => ({
   status: 'ok',
   code,
-  data: {
-    result,
-  }
+  data: result
 })
 
 module.exports = responseTemplate
