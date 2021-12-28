@@ -11,14 +11,14 @@ const { routeHandlers: handlers } = require('../../routeHandlers')
 
 router.get('/', auth, wrapper(handlers.getAll))
 
-router.get('/:contactId', wrapper(handlers.getById))
+router.get('/:contactId', auth, wrapper(handlers.getById))
 
 router.post('/', auth, validation(schema), wrapper(handlers.post))
 
-router.put('/:contactId', validation(schema), wrapper(handlers.put))
+router.put('/:contactId', auth, validation(schema), wrapper(handlers.put))
 
-router.patch('/:contactId/favorite', validation(favoriteJoiSchema), wrapper(handlers.updateFavorite))
+router.patch('/:contactId/favorite', auth, validation(favoriteJoiSchema), wrapper(handlers.updateFavorite))
 
-router.delete('/:contactId', wrapper(handlers.remove))
+router.delete('/:contactId', auth, wrapper(handlers.remove))
 
 module.exports = router

@@ -1,10 +1,18 @@
 const mongoose = require('mongoose')
-const throwError = require('../../helpers')
+const { throwError } = require('../../helpers')
 const { Contact } = require('../../models')
 
 const remove = async (req, res) => {
+  const { _id } = req.user
   const { contactId: id } = req.params
+
   if (!mongoose.isValidObjectId(id)) {
+    throwError(id)
+  }
+
+  const contact = await Contact.findById(id)
+
+  if (contact.owner.toString() !== _id.toString()) {
     throwError(id)
   }
 
