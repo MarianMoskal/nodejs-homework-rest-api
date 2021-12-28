@@ -11,9 +11,9 @@ const getById = async (req, res) => {
     throwError(id)
   }
 
-  const data = await Contact.findById(id)
+  const data = await Contact.findOne({ _id: id, owner: _id })
 
-  if (!data || data.owner.toString() !== _id.toString()) {
+  if (!data) {
     throwError(id)
   }
 

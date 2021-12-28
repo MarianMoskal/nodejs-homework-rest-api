@@ -10,13 +10,7 @@ const remove = async (req, res) => {
     throwError(id)
   }
 
-  const contact = await Contact.findById(id)
-
-  if (contact.owner.toString() !== _id.toString()) {
-    throwError(id)
-  }
-
-  const result = await Contact.findByIdAndRemove(id)
+  const result = await Contact.findOneAndRemove({ _id: id, owner: _id })
 
   if (!result) {
     throwError(id)

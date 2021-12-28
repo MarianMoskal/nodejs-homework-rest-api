@@ -10,13 +10,7 @@ const updateFavorite = async (req, res) => {
     throwError(id)
   }
 
-  const contact = await Contact.findById(id)
-
-  if (contact.owner.toString() !== _id.toString()) {
-    throwError(id)
-  }
-
-  const result = await Contact.findByIdAndUpdate(id, { favorite }, { new: true })
+  const result = await Contact.findOneAndUpdate({ _id: id, owner: _id }, { favorite }, { new: true })
 
   if (!result) {
     throwError(id)
