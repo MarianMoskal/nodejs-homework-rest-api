@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
   const filter = { owner: _id }
 
   if (favorite !== undefined) {
-    filter.favorite = favorite === 'true'
+    filter.favorite = favorite
   }
 
   const result = await Contact.find(
