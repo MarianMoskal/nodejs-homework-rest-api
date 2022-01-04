@@ -12,8 +12,10 @@ const updateAvatar = async (req, res) => {
 
   try {
     const resultUpload = path.join(avatarsDir, imageName)
+
     await fs.rename(tempUpload, resultUpload)
-    const avatarURL = path.join('public', 'avatars', imageName)
+
+    const avatarURL = resultUpload
 
     Jimp.read(avatarURL)
       .then(avatar => {
