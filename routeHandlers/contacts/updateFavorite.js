@@ -1,13 +1,16 @@
 const mongoose = require('mongoose')
-const throwError = require('../../helpers')
+const { throwError } = require('../../helpers')
 const { Contact } = require('../../models')
 
 const updateFavorite = async (req, res) => {
+  const { _id } = req.user
   const { body: { favorite }, params: { contactId: id } } = req
+
   if (!mongoose.isValidObjectId(id)) {
     throwError(id)
   }
-  const result = await Contact.findByIdAndUpdate(id, { favorite }, { new: true })
+
+  const result = await Contact.findOneAndUpdate({ _id: id, owner: _id }, { favorite }, { new: true })
 
   if (!result) {
     throwError(id)

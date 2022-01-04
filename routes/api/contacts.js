@@ -2,22 +2,23 @@ const express = require('express')
 const router = express.Router()
 
 const {
+  auth,
   validation,
   routeHandlerWrapper: wrapper
 } = require('../../middlewares')
 const { contactsJoiSchema: schema, favoriteJoiSchema } = require('../../models')
-const { routeHandlers: handler } = require('../../routeHandlers')
+const { routeHandlers: handlers } = require('../../routeHandlers')
 
-router.get('/', wrapper(handler.getAll))
+router.get('/', auth, wrapper(handlers.getAll))
 
-router.get('/:contactId', wrapper(handler.getById))
+router.get('/:contactId', auth, wrapper(handlers.getById))
 
-router.post('/', validation(schema), wrapper(handler.post))
+router.post('/', auth, validation(schema), wrapper(handlers.post))
 
-router.put('/:contactId', validation(schema), wrapper(handler.put))
+router.put('/:contactId', auth, validation(schema), wrapper(handlers.put))
 
-router.patch('/:contactId/favorite', validation(favoriteJoiSchema), wrapper(handler.updateFavorite))
+router.patch('/:contactId/favorite', auth, validation(favoriteJoiSchema), wrapper(handlers.updateFavorite))
 
-router.delete('/:contactId', wrapper(handler.remove))
+router.delete('/:contactId', auth, wrapper(handlers.remove))
 
 module.exports = router
