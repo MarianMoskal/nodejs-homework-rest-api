@@ -15,17 +15,17 @@ const updateAvatar = async (req, res) => {
 
     await fs.rename(tempUpload, resultUpload)
 
-    const avatarURL = resultUpload
-
-    Jimp.read(avatarURL)
+    Jimp.read(resultUpload)
       .then(avatar => {
         avatar
-          .resize(250, 250)
-          .write(avatarURL)
+          .resize(250, 250, Jimp.RESIZE_BILINEAR)
+          .write(resultUpload)
       })
       .catch(error => {
         throw error
       })
+
+    const avatarURL = resultUpload
 
     await User.findByIdAndUpdate(req.user._id, { avatarURL })
     res.json({ avatarURL })
