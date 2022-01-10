@@ -10,7 +10,8 @@ const {
 
 const {
   userSignUpJoiSchema: signUpSchema,
-  userLogInJoiSchema: logInSchema
+  userLogInJoiSchema: logInSchema,
+  userVerifyEmailJoiSchema: emailSchema
 } = require('../../models')
 
 const router = express.Router()
@@ -24,5 +25,9 @@ router.get('/current', auth, wrapper(handlers.getCurrent))
 router.get('/logout', auth, wrapper(handlers.logout))
 
 router.patch('/avatars', auth, upload.single('avatar'), wrapper(handlers.updateAvatar))
+
+router.get('/verify/:verificationToken', wrapper(handlers.verifyEmail))
+
+router.post('/verify', validation(emailSchema), wrapper(handlers.postVerify))
 
 module.exports = router
